@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import static com.gildedrose.ItemUtil.degrade;
+import static com.gildedrose.ItemUtil.enhance;
+
 class GildedRose {
     public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
     public static final String AGED_BRIE = "Aged Brie";
@@ -53,28 +56,6 @@ class GildedRose {
             }
             if (item.sellIn <= 5) {
                 enhance(item);
-            }
-        }
-    }
-
-    private boolean isQualityMoreThanZero(int quality) {
-        return quality > 0;
-    }
-
-    private boolean isQualityLessThanFifty(int quality) {
-        return quality < 50;
-    }
-
-    private void enhance(Item item) {
-        if (isQualityLessThanFifty(item.quality)) {
-            item.quality++;
-        }
-    }
-
-    private void degrade(Item item) {
-        if (isQualityMoreThanZero(item.quality)) {
-            if (!item.name.equals(SULFURAS)) {
-                item.quality--;
             }
         }
     }
