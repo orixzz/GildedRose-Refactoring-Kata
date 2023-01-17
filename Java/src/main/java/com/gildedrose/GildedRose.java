@@ -19,7 +19,7 @@ class GildedRose {
             if (!item.name.equals(AGED_BRIE)
                 && !item.name.equals(BACKSTAGE_PASSES)) {
                 updateNormalItemQuality(item);
-            } else if(item.name.equals("Aged Brie")) {
+            } else if(item.name.equals(AGED_BRIE)) {
                 updateAgedBrieQuality(item);
             } else if (item.name.equals(BACKSTAGE_PASSES)) {
                 updateBackstagePassQuality(item);
