@@ -12,13 +12,13 @@ public class ItemUtil {
         return quality < 50;
     }
 
-    protected static void enhance(Item item) {
+    public static void enhance(Item item) {
         if (isQualityLessThanFifty(item.quality)) {
             item.quality++;
         }
     }
 
-    protected static void degrade(Item item) {
+    public static void degrade(Item item) {
         if (isQualityMoreThanZero(item.quality)) {
             if (!item.name.equals(SULFURAS)) {
                 item.quality--;
