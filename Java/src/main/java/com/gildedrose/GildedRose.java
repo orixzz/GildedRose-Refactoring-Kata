@@ -16,51 +16,71 @@ class GildedRose {
         for (Item item : items) {
             if (!item.name.equals(AGED_BRIE)
                 && !item.name.equals(BACKSTAGE_PASSES)) {
-                if (item.quality > 0) {
-                    if (!item.name.equals(SULFURAS)) {
-                        item.quality--;
-                    }
-                }
-            } else {
-                if (item.quality < 50) {
-                    item.quality++;
-
-                    if (item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality++;
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality++;
-                            }
-                        }
-                    }
-                }
+                updateNormalItemQuality(item);
+            } else if(item.name.equals("Aged Brie")) {
+                updateAgedBrieQuality(item);
+            } else if (item.name.equals(BACKSTAGE_PASSES)) {
+                updateBackstagePassQuality(item);
             }
 
-            if (!item.name.equals(SULFURAS)) {
-                item.sellIn--;
-            }
+            updateSellIn(item);
 
             if (item.sellIn < 0) {
                 if (!item.name.equals(AGED_BRIE)) {
                     if (!item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals(SULFURAS)) {
-                                item.quality--;
-                            }
-                        }
+                        degrade(item);
                     } else {
                         item.quality = 0;
                     }
                 } else {
-                    if (item.quality < 50) {
-                        item.quality++;
-                    }
+                    enhance(item);
                 }
+            }
+        }
+    }
+
+    private void updateSellIn(Item item) {
+        if (!item.name.equals(SULFURAS)) {
+            item.sellIn--;
+        }
+    }
+
+    public void updateNormalItemQuality(Item item) {
+        degrade(item);
+    }
+
+    public void updateAgedBrieQuality(Item item) {
+        enhance(item);
+    }
+
+    public void updateBackstagePassQuality(Item item) {
+        enhance(item);
+        if (item.sellIn <= 10) {
+            enhance(item);
+        }
+        if (item.sellIn <= 5) {
+            enhance(item);
+        }
+    }
+
+    private boolean isQualityMoreThanZero(int quality) {
+        return quality > 0;
+    }
+
+    private boolean isQualityLessThanFifty(int quality) {
+        return quality < 50;
+    }
+
+    private void enhance(Item item) {
+        if (isQualityLessThanFifty(item.quality)) {
+            item.quality++;
+        }
+    }
+
+    private void degrade(Item item) {
+        if (isQualityMoreThanZero(item.quality)) {
+            if (!item.name.equals(SULFURAS)) {
+                item.quality--;
             }
         }
     }
